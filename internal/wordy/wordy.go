@@ -46,7 +46,7 @@ type tile struct {
 // PlayWordy takes an int argument representing the wordy
 // puzzle number. It then plays that puzzle until it either
 // solves it or loses
-func PlayWordy(dict []string, v int) string {
+func PlayWordy(dict []string, v int) (string, bool) {
 	// pick a starting word from our start list
 	rand.Seed(time.Now().UnixNano())
 	guesses := []string{start[rand.Intn(len(start)-1)]}
@@ -61,10 +61,11 @@ func PlayWordy(dict []string, v int) string {
 	out := make(map[string]bool)
 	victory := evaluateResponse(guesses, &word, in, out, playResp)
 	if victory == 1 {
-		return "victory!"
+		return "Victory! First Try!", true
 	}
 	// make a for loop that plays until success or defeat
 	errs := 0
+	tries := 1
 	for victory == 0 && errs < 10 {
 		// keep doing this
 		var s string
@@ -80,14 +81,17 @@ func PlayWordy(dict []string, v int) string {
 		playResp, err = submit(guesses, v)
 		if err != nil {
 			// just try again
+			errs++
 			continue
 		}
+		tries++
+
 		victory = evaluateResponse(guesses, &word, in, out, playResp)
 	}
 	if victory == 1 {
-		return "victory!"
+		return fmt.Sprintf("Victory in %d guesses!", tries), true
 	}
-	return "defeat :("
+	return "defeat :(", false
 }
 
 func submit(guesses []string, v int) (*wordyPlayResponse, error) {
@@ -128,7 +132,7 @@ func submit(guesses []string, v int) (*wordyPlayResponse, error) {
 
 func evaluateResponse(guesses []string, word *[5]string, in map[string][]int, out map[string]bool, w *wordyPlayResponse) int {
 	// uncomment to print response for debugging purposes
-	fmt.Println(w)
+	// fmt.Println(w)
 	// check to see if we won
 	if w.Data.CorrectIn > 0 {
 		return 1
