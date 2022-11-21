@@ -107,7 +107,7 @@ func submit(guesses []string, v int) (*wordyPlayResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("Authorization", "Basic dGVzdHVzZXI6dGVzdHBhc3M=")
+	req.Header.Set("Authorization", os.Getenv("AUTH"))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "*/*")
 	req.Header.Set("Accept-Encoding", "gzip, deflate, br")

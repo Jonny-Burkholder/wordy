@@ -30,7 +30,7 @@ func GetWords() []string {
 	if err != nil {
 		panic(errors.New("error fetching dictionaries: " + err.Error()))
 	}
-	req.Header.Set("Authorization", "Basic dGVzdHVzZXI6dGVzdHBhc3M=")
+	req.Header.Set("Authorization", os.Getenv("AUTH"))
 	req.Header.Set("Accept", "*/*")
 	req.Header.Set("Accept-Encoding", "gzip, deflate, br")
 	req.Header.Set("Connection", "keep-alive")
@@ -67,7 +67,7 @@ func GetWords() []string {
 		if err != nil {
 			panic(errors.New("error fetching dictionaries: " + err.Error()))
 		}
-		req.Header.Set("Authorization", "Basic dGVzdHVzZXI6dGVzdHBhc3M=")
+		req.Header.Set("Authorization", os.Getenv("AUTH"))
 		req.Header.Set("Accept", "*/*")
 		req.Header.Set("Accept-Encoding", "gzip, deflate, br")
 		req.Header.Set("Connection", "keep-alive")
