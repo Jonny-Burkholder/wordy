@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-// we're just going to make a hash map and hold all the
+// we're just going to make a slice and hold all the
 // words in there so that we don't need a real database
 
 type dictResponse struct {
@@ -61,7 +61,7 @@ func GetWords() []string {
 	}
 
 	// rinse and repeat
-	for i := 2; i < pages; i++ {
+	for i := 2; i <= pages; i++ {
 		current := fmt.Sprintf("%s?page=%d", path, i)
 		req, err := http.NewRequest("GET", current, nil)
 		if err != nil {
