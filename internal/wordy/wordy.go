@@ -103,7 +103,7 @@ func submit(guesses []string, v int) (*wordyPlayResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	req, err := http.NewRequest("GET", url, bytes.NewBuffer(data))
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(data))
 	if err != nil {
 		return nil, err
 	}

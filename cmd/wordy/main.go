@@ -26,8 +26,8 @@ func main() {
 
 	// there are 511 wordy puzzles, but 114 makes our app crash
 	// due to the word not being in the dictionary list
-	// for i := 1; i < 511; i++ {
-	for i := 1; i < 114; i++ {
+	for i := 1; i < 511; i++ {
+		// for i := 1; i < 114; i++ {
 		fmt.Println()
 		fmt.Println("****************************************")
 		fmt.Printf("Playing wordy number %d\n", i)
